@@ -1,0 +1,20 @@
+{
+  "name": "amber-electric-azure-functions",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\"",
+    "commit": "sgc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@azure/functions": "^1.0.2-beta2",
+    "prettier": "^2.1.0",
+    "semantic-git-commit-cli": "^3.7.0",
+    "typescript": "^3.3.3"
+  }
+}
