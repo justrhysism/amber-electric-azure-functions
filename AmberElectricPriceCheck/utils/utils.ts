@@ -10,6 +10,11 @@ export const parseIntFallback = (value: string, fallback: number = 0) => {
 	return Number.isNaN(parsed) ? fallback : parsed;
 };
 
+export const parseFloatFallback = (value: string, fallback: number = 0.0) => {
+	const parsed = Number.parseFloat(value);
+	return Number.isNaN(parsed) ? fallback : parsed;
+};
+
 const percentFormatter = new Intl.NumberFormat(LOCALE, { style: 'percent' });
 const currencyFormatter = new Intl.NumberFormat(LOCALE, {
 	style: 'currency',

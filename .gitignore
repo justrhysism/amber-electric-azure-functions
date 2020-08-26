@@ -92,3 +92,7 @@ bin
 obj
 appsettings.json
 local.settings.json
+.azurite/
+
+# IDE
+.vscode/settings.json
