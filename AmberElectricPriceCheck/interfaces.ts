@@ -22,3 +22,8 @@ export interface PricePeriodModel {
 export interface PricePeriodNotification extends PricePeriodModel {
 	priority: Priority;
 }
+
+export interface PeriodNotificationData {
+	periods: PricePeriodNotification[];
+	priority: Priority;
+}
