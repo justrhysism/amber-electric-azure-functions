@@ -4,7 +4,7 @@
 			"name": "myTimer",
 			"type": "timerTrigger",
 			"direction": "in",
-			"schedule": "20,50 * * * *"
+			"schedule": "0 29,59 * * * *"
 		}
 	],
 	"scriptFile": "../dist/AmberElectricPriceCheck/index.js"
