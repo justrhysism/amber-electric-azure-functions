@@ -10,23 +10,15 @@ export const CONFIG = {
 		process.env['PriceCheck.TimezoneOffsetMinutes'],
 		0
 	),
-	Warning: {
-		Price: parseFloatFallback(process.env['PriceCheck.Warning.Price'], 0.5),
-		PeriodIndexes: (
-			process.env['PriceCheck.Warning.PeriodIndexes'] ??
-			process.env['PriceCheck.Critical.PeriodIndicies'] ??
-			'0,1'
-		)
+	Price: {
+		Warning: parseFloatFallback(process.env['PriceCheck.Price.Warning'], 0.5),
+		Critical: parseFloatFallback(process.env['PriceCheck.Price.Critical'], 0.5),
+	},
+	PeriodIndexes: {
+		Warning: (process.env['PriceCheck.PeriodIndexes.Warning'] ?? '0,1')
 			.split(',')
 			.map((i) => Number.parseInt(i)),
-	},
-	Critical: {
-		Price: parseFloatFallback(process.env['PriceCheck.Critical.Price'], 1.0),
-		PeriodIndexes: (
-			process.env['PriceCheck.Critical.PeriodIndexes'] ??
-			process.env['PriceCheck.Critical.PeriodIndicies'] ??
-			'0,1'
-		)
+		Critical: (process.env['PriceCheck.PeriodIndexes.Critical'] ?? '0,1')
 			.split(',')
 			.map((i) => Number.parseInt(i)),
 	},
@@ -34,32 +26,32 @@ export const CONFIG = {
 
 export const PUSHOVER = {
 	app: {
-		user: process.env['PUSHOVER_USER'] ?? undefined,
-		token: process.env['PUSHOVER_TOKEN'] ?? undefined,
+		user: process.env['Pushover.User'] ?? undefined,
+		token: process.env['Pushover.Token'] ?? undefined,
 	},
 	notification: {
-		device: process.env['PUSHOVER_DEVICE'] ?? undefined,
+		device: process.env['Pushover.Device'] ?? undefined,
 	},
 };
 
 export const validateConfig = () => {
-	if (CONFIG.Warning.PeriodIndexes.some(Number.isNaN))
+	if (CONFIG.PeriodIndexes.Warning.some(Number.isNaN))
 		throw Error(
-			`Invalid Config: [PriceCheck.Warning.PeriodIndexes]: ${CONFIG.Warning.PeriodIndexes}`
+			`Invalid Config: [PriceCheck.PeriodIndexes.Warning]: ${CONFIG.PeriodIndexes.Warning}`
 		);
 
-	if (CONFIG.Critical.PeriodIndexes.some(Number.isNaN))
+	if (CONFIG.PeriodIndexes.Critical.some(Number.isNaN))
 		throw Error(
-			`Invalid Config: [PriceCheck.Critical.PeriodIndexes]: ${CONFIG.Critical.PeriodIndexes}`
+			`Invalid Config: [PriceCheck.PeriodIndexes.Critical]: ${CONFIG.PeriodIndexes.Critical}`
 		);
 
-	if (Number.isNaN(CONFIG.Warning.Price))
+	if (Number.isNaN(CONFIG.Price.Warning))
 		throw Error(
-			`Invalid Config: [PriceCheck.Warning.Price]: ${CONFIG.Warning.Price}`
+			`Invalid Config: [PriceCheck.Warning.Price]: ${CONFIG.Price.Warning}`
 		);
 
-	if (Number.isNaN(CONFIG.Critical.Price))
+	if (Number.isNaN(CONFIG.Price.Critical))
 		throw Error(
-			`Invalid Config: [PriceCheck.Critical.Price]: ${CONFIG.Critical.Price}`
+			`Invalid Config: [PriceCheck.Price.Critical]: ${CONFIG.Price.Critical}`
 		);
 };

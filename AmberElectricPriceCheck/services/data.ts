@@ -18,6 +18,7 @@ import { fetchPriceList } from './network';
 export async function fetchData(): Promise<PeriodNotificationData> {
 	const listResponse = await fetchPriceList(CONFIG.Postcode);
 
+	// TODO: Upgrade to set timezone to calculate offset automatically
 	const priceListModel = mapListResponseToModel(listResponse, {
 		timezoneOffsetMinutes: CONFIG.TimezoneOffsetMinutes,
 	});
@@ -30,11 +31,11 @@ export async function fetchData(): Promise<PeriodNotificationData> {
 
 	const priceForecast = priceListModel.slice(currentPriceIndex + 1);
 
-	const warningPeriodIndexes = CONFIG.Warning.PeriodIndexes;
-	const criticalPeriodIndexes = CONFIG.Critical.PeriodIndexes;
+	const warningPeriodIndexes = CONFIG.PeriodIndexes.Warning;
+	const criticalPeriodIndexes = CONFIG.PeriodIndexes.Critical;
 
-	const warningThreshold = CONFIG.Warning.Price;
-	const criticalThreshold = CONFIG.Critical.Price;
+	const warningThreshold = CONFIG.Price.Warning;
+	const criticalThreshold = CONFIG.Price.Critical;
 
 	// TODO: Upgrade to reduce to several periods of time so windows of time can be reported.
 	const criticalPeriods: PricePeriodNotification[] = criticalPeriodIndexes
